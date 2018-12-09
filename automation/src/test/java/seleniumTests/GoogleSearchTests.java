@@ -3,6 +3,8 @@ package seleniumTests;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +22,9 @@ public class GoogleSearchTests extends TestBase {
 		searchBox.sendKeys("Code Sprinters");
 		searchBox.submit();
 
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div#search")));
+
 		List<WebElement> searchResults = driver.findElements(By.className("rc"));
 		List<WebElement> codeSprintersResults = searchResults.stream()
 				.filter(result -> result
@@ -30,9 +35,8 @@ public class GoogleSearchTests extends TestBase {
 				.collect(Collectors.toList());
 
 		assertAll("One result found with valid content",
-				() -> assertEquals(1, codeSprintersResults.size(), "Only one result is found"),
-				() -> assertEquals("agileszkolenia.pl/", codeSprintersResults.get(0).findElement(By.tagName("cite")).getText(), "Visible link is set to agileszkolenia.pl/")
-		);
+                () -> assertEquals(1, codeSprintersResults.size(), "Only one result is found"),
+                () -> assertEquals("agileszkolenia.pl/", codeSprintersResults.get(0).findElement(By.tagName("cite")).getText(), "Visible link is set to agileszkolenia.pl/"));
 	}
 
 	@Test
@@ -42,6 +46,9 @@ public class GoogleSearchTests extends TestBase {
 		WebElement searchBox = driver.findElement(By.name("q"));
 		searchBox.sendKeys("Scrum org");
 		searchBox.submit();
+
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div#search")));
 
 		List<WebElement> searchResults = driver.findElements(By.className("rc"));
 		List<WebElement> scrumOrgResults = searchResults.stream()
