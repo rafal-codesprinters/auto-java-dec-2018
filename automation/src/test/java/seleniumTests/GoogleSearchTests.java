@@ -22,7 +22,11 @@ public class GoogleSearchTests extends TestBase {
 
 		List<WebElement> searchResults = driver.findElements(By.className("rc"));
 		List<WebElement> codeSprintersResults = searchResults.stream()
-				.filter(result -> result.findElement(By.cssSelector(".r > a")).getAttribute("href").equals("http://agileszkolenia.pl/"))
+				.filter(result -> result
+						.findElement(By.cssSelector(".r > a"))
+						.getAttribute("href")
+						.equals("http://agileszkolenia.pl/")
+				)
 				.collect(Collectors.toList());
 
 		assertAll("One result found with valid content",
