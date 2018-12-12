@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 
 public class GoogleMainPage {
 
-    private static final String GOOGLE_PAGE_URL = "http://www.google.com";
-    public static final By SEARCH_BOX_LOC = By.name("q");
     private final WebDriver gmpDriver;
+    private static final String GOOGLE_PAGE_URL = "http://www.google.com";
+    private static final By LOC_SEARCH_BOX = By.name("q");
 
     public GoogleMainPage(WebDriver driver) {
         gmpDriver = driver;
@@ -16,8 +16,7 @@ public class GoogleMainPage {
     }
 
     public GoogleResultPage search(String searchQuery) {
-
-        WebElement searchBox = gmpDriver.findElement(SEARCH_BOX_LOC);
+        WebElement searchBox = gmpDriver.findElement(LOC_SEARCH_BOX);
         searchBox.sendKeys(searchQuery);
         searchBox.submit();
 
