@@ -3,6 +3,8 @@ package selenium.wordpresspageobjects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import selenium.wordpresspageobjects.pages.WpAdminPage;
+import selenium.wordpresspageobjects.pages.WpLoginPage;
 import selenium.wordpresspageobjects.pages.WpMainPage;
 import selenium.wordpresspageobjects.pages.WpNotePage;
 
@@ -27,12 +29,23 @@ public class WordPressTests extends BaseTest {
         Assertions.assertTrue(latestNoteWithComment.commentExists(comment, author));
     }
 
-    private String generateRandomEmail() {
-        return generateRandomText() + "@testdomain.com";
-    }
+    @Test
+    public void canPublishNewNote() {
+        String user = "automatyzacja";
+        String password = "jesien2018";
+        String title = generateRandomText();
+        String content = generateRandomText();
 
-    private String generateRandomText() {
-        return UUID.randomUUID().toString();
+        WpLoginPage loginPage = new WpLoginPage(driver);
+        WpAdminPage adminPage = loginPage.login(user, password);
+
+        String noteUrl = adminPage.createNote(title, content);
+        WpLoginPage loggedOutPage = adminPage.logout();
+
+        WpNotePage notePage = new WpNotePage(driver, noteUrl);
+        Assertions.assertEquals(title, notePage.getTitle());
+        Assertions.assertEquals(content, notePage.getContent());
+
     }
 
 }
