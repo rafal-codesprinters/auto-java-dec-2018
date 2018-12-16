@@ -15,17 +15,17 @@ public class WpNotePage extends WpPage {
     private static final By WP_NOTE_PAGE = By.cssSelector("body.single-post");
 
     // Elements created by Page Factory used to read entry title and content
-    private @FindBy (className = "entry-title") WebElement noteTitle;
-    private @FindBy (className = "entry-content") WebElement noteContent;
+    @FindBy (className = "entry-title") private WebElement noteTitle;
+    @FindBy (className = "entry-content") private WebElement noteContent;
 
     // Elements created by Page Factory used to post comments
-    private @FindBy (id = "comment") WebElement commentBox;
-    private @FindBy (id = "author") WebElement authorBox;
-    private @FindBy (id = "email") WebElement emailBox;
-    private @FindBy (id = "submit") WebElement submitButton;
+    @FindBy (id = "comment") private WebElement commentBox;
+    @FindBy (id = "author") private WebElement authorBox;
+    @FindBy (id = "email") private WebElement emailBox;
+    @FindBy (id = "submit") private WebElement submitButton;
 
     // List of all comments created by Page Factory
-    private @FindAll ({@FindBy (css = ".comment-list > .comment")}) List<WebElement> allComments;
+    @FindAll ({@FindBy (css = ".comment-list > .comment")}) List<WebElement> allComments;
 
     // Locators for comments list
     private static final By COMMENT_AUTHOR = By.cssSelector(".comment-author > b");

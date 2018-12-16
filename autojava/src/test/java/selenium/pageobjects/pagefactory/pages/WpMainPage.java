@@ -13,7 +13,7 @@ public class WpMainPage extends WpPage {
     private static final By WP_MAIN_PAGE = By.cssSelector("body.home");
 
     // Elements created by Page Factory
-    private @FindBy (css = ".entry-title > a") WebElement latestNote;
+    @FindBy (css = ".entry-title > a") private WebElement latestNote;
 
     public WpMainPage(WebDriver driver) {
         super(driver);

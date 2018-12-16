@@ -13,9 +13,9 @@ public class WpLoginPage extends WpPage {
     private static final By LOGIN_PAGE = By.cssSelector("body.login");
 
     // Elements created by Page Factory for login form
-    private @FindBy (id = "user_login") WebElement userBox;
-    private @FindBy (id = "user_pass") WebElement passwordBox;
-    private @FindBy (id = "wp-submit") WebElement submitButton;
+    @FindBy (id = "user_login") private WebElement userBox;
+    @FindBy (id = "user_pass") private WebElement passwordBox;
+    @FindBy (id = "wp-submit") private WebElement submitButton;
 
     public WpLoginPage(WebDriver driver) {
         super(driver);

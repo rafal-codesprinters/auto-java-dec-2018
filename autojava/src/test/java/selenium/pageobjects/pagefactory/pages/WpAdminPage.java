@@ -3,10 +3,8 @@ package selenium.pageobjects.pagefactory.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class WpAdminPage extends WpPage {
@@ -16,22 +14,22 @@ public class WpAdminPage extends WpPage {
     private static final By SUBMENU_ITEM = By.cssSelector("li a");
 
     // Elements created by Page Factory for new post menu and submenus
-    private @FindBy (css = ".post-new-php") WebElement newPostEditor;
-    private @FindBy (id = "menu-posts") WebElement menuNotes;
-    private @FindBy (css = ".wp-submenu") WebElement submenu;
+    @FindBy (css = ".post-new-php") private WebElement newPostEditor;
+    @FindBy (id = "menu-posts") private WebElement menuNotes;
+    @FindBy (css = ".wp-submenu") private WebElement submenu;
 
     // Elements created by Page Factory for note editor
-    private @FindBy (id = "title") WebElement newNoteTitle;
-    private @FindBy (id = "content-html") WebElement htmlEditorTab;
-    private @FindBy (id = "content") WebElement newNoteContent;
-    private @FindBy (css = ".edit-slug") WebElement permalinkEditButton;
-    private @FindBy (id = "publish") WebElement publishButton;
-    private @FindBy (id = "sample-permalink") WebElement permalink;
+    @FindBy (id = "title") private WebElement newNoteTitle;
+    @FindBy (id = "content-html") private WebElement htmlEditorTab;
+    @FindBy (id = "content") private WebElement newNoteContent;
+    @FindBy (css = ".edit-slug") private WebElement permalinkEditButton;
+    @FindBy (id = "publish") private WebElement publishButton;
+    @FindBy (id = "sample-permalink") private WebElement permalink;
 
     // Elements created by Page Factory for user admin menu
-    private @FindBy (id = "wp-admin-bar-my-account") WebElement userAdminLink;
-    private @FindBy (id = "wp-admin-bar-user-actions") WebElement userActionsMenu;
-    private @FindBy (id = "wp-admin-bar-logout") WebElement logoutLink;
+    @FindBy (id = "wp-admin-bar-my-account") private WebElement userAdminLink;
+    @FindBy (id = "wp-admin-bar-user-actions") private WebElement userActionsMenu;
+    @FindBy (id = "wp-admin-bar-logout") private WebElement logoutLink;
 
     private static final String ADD_NEW_MENU_TITLE = "Dodaj nowy";
 
