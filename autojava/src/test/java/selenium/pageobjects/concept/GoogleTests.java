@@ -1,12 +1,10 @@
-package selenium.pagebjects;
+package selenium.pageobjects.concept;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import selenium.pagebjects.pages.GoogleMainPage;
-import selenium.pagebjects.pages.GoogleResultPage;
-
-import java.util.UUID;
+import selenium.pageobjects.concept.pages.GoogleMainPage;
+import selenium.pageobjects.concept.pages.GoogleResultPage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +37,12 @@ public class GoogleTests extends BaseTest {
 
     }
 
+    /*
+        This is how parameterized test is created using CSV format of test data.
+        See pom.xml file (Maven configuration) to see how to add project
+        dependency 'junit-jupiter-params' and read more at:
+        https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests
+    */
     @ParameterizedTest
     @CsvSource({
             "Scrum.org, https://www.scrum.org/, Scrum.org: Homepage",

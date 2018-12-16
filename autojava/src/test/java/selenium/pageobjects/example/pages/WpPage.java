@@ -1,4 +1,4 @@
-package selenium.wordpresspageobjects.pages;
+package selenium.pageobjects.example.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,10 +10,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WpPage {
 
+    private static final String adminUser = "automatyzacja";
+    private static final String adminPassword = "jesien2018";
+
     protected final WebDriver driver;
 
     public WpPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public static String adminUser() {
+        return adminUser;
+    }
+
+    public static String adminPassword() {
+        return adminPassword;
     }
 
     protected void scrollElementIntoView(WebElement element) {
@@ -22,15 +33,8 @@ public class WpPage {
     }
 
     protected void hoverOverElement(WebElement element) {
-
-
-
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
-
-
-
-
     }
 
     protected void waitForElementClickable(By locator, int seconds) {
@@ -41,5 +45,20 @@ public class WpPage {
     protected void waitForElementClickable(WebElement element, int seconds) {
         WebDriverWait wait = new WebDriverWait(driver, seconds);
         wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    protected void waitForElementVisible(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, seconds);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+    }
+
+    protected void waitForElementVisible(WebElement element, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, seconds);
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected void waitForElementPresent(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, seconds);
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 }

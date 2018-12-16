@@ -1,6 +1,5 @@
-package selenium.wordpresspageobjects.pages;
+package selenium.pageobjects.example.pages;
 
-import jdk.jfr.ContentType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,7 @@ import java.util.stream.Stream;
 public class WpNotePage extends WpPage {
 
     // Locators for note page
-    public static final By SINGE_NOTE_CONTAINER = By.cssSelector("body.single-post");
+    private static final By WP_NOTE_PAGE = By.cssSelector("body.single-post");
     private static final By TITLE = By.className("entry-title");
     private static final By CONTENT = By.className("entry-content");
 
@@ -28,11 +27,16 @@ public class WpNotePage extends WpPage {
 
     public WpNotePage(WebDriver driver) {
         super(driver);
+
+        // This will throw timeout error if within 2 seconds note page is not loaded
+        // If error (exception) is thrown, the test execution stops with an error.
+        // It allows to prevent from going further if requested page did not load or wrong page loaded.
+        waitForElementPresent(WP_NOTE_PAGE, 2);
     }
 
-    public WpNotePage(WebDriver driver, String noteUrl) {
-        this(driver);
-        openNote(noteUrl);
+    public static WpNotePage open(String noteUrl, WebDriver driver) {
+        driver.get(noteUrl);
+        return new WpNotePage(driver);
     }
 
     public WpNotePage addComment(String comment, String author, String email) {
@@ -44,7 +48,7 @@ public class WpNotePage extends WpPage {
         scrollElementIntoView(submit);
         submit.click();
 
-        driver.findElement(SINGE_NOTE_CONTAINER);
+        driver.findElement(WP_NOTE_PAGE);
         return new WpNotePage(driver);
     }
 
@@ -55,11 +59,6 @@ public class WpNotePage extends WpPage {
                 .filter(c -> c.findElement(COMMENT_CONTENT).getText().equals(comment));
 
         return comments.count() == 1;
-    }
-
-    private void openNote(String noteUrl) {
-        driver.get(noteUrl);
-        driver.findElement(SINGE_NOTE_CONTAINER);
     }
 
     public String getTitle() {

@@ -8,39 +8,98 @@
 	<artifactId>autojava</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
+	<!-- This section allows you to add dependencies to your project -->
 	<dependencies>
+		<!-- This is needed to be able to use JUnit5 -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>5.3.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
-		</dependency>
+		<!--
+			This is needed to be able to pass parameters to the test.
+			You should use annotation @ParameterizedTest instead of regular @Test before your test methods.
+
+			More details and examples:
+			https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests
+		-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
 			<version>5.3.2</version>
 		</dependency>
+		<!-- This is needed to be able to use Selenium WebDriver -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
+		</dependency>
 	</dependencies>
 
+	<!-- This section allows you to control build and running your tests -->
 	<build>
 		<plugins>
+			<!-- This forces compilation with Java 11 release -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
+					<!-- This sets release to Java 11 -->
 					<release>11</release>
 				</configuration>
 			</plugin>
+			<!-- This allows you to run JUnit5 tests directly from Maven without IntelliJ IDEA -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
+				<configuration>
+					<!--
+						This is optional and allows you to configure execution from Maven in parallel.
+						This example enables parallel execution of tests in 4 concurrent threads.
+
+						Read more:
+						https://junit.org/junit5/docs/snapshot/user-guide/#writing-tests-parallel-execution
+					-->
+					<properties>
+						<configurationParameters>
+							junit.jupiter.execution.parallel.enabled = true
+							junit.jupiter.execution.parallel.mode.default = concurrent
+							junit.jupiter.execution.parallel.config.strategy=fixed
+							junit.jupiter.execution.parallel.config.fixed.parallelism=4
+						</configurationParameters>
+					</properties>
+					<!--
+						This is optional and allows you to control which browser will be started.
+						See how it is used in class 'ExampleTestCases' from package 'selenium.testexecution'.
+					-->
+					<systemPropertyVariables>
+						<!--
+							Default value to be used unless provided from Maven command line.
+							This will then be used when running tests directly from IntelliJ IDEA.
+
+							If you look into ExampleTestCases method annotated with @BeforeEach you will see
+							that possible values are:
+
+								firefox
+								chrome
+
+							If anything else is provided, InvalidBrowserConfiguration is thrown.
+						-->
+						<browser>chrome</browser>
+						<!-- This controls whether test is executed on Selenium Grid (true) or locally (false). -->
+						<grid>false</grid>
+						<!--
+							If grid execution is enabled, this would be used as default exemplary configuration.
+							In this example an attempt to connect to Selenium Grid Hub running on local machine
+							and listening on port 9876 would be made.
+						-->
+						<host>localhost</host>
+						<port>9876</port>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

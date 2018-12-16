@@ -1,4 +1,4 @@
-package selenium.pagebjects.pages;
+package selenium.pageobjects.concept.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
